@@ -10,7 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_11_22_185403) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_042838) do
+  create_table "logs", force: :cascade do |t|
+    t.string "summary"
+    t.integer "robot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["robot_id"], name: "index_logs_on_robot_id"
+  end
+
+  create_table "parts", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "parts_robots", force: :cascade do |t|
+    t.integer "part_id", null: false
+    t.integer "robot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["part_id"], name: "index_parts_robots_on_part_id"
+    t.index ["robot_id"], name: "index_parts_robots_on_robot_id"
+  end
+
+  create_table "robots", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_robots_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "slug"
     t.datetime "created_at", null: false
@@ -51,6 +82,10 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_22_185403) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "logs", "robots"
+  add_foreign_key "parts_robots", "parts"
+  add_foreign_key "parts_robots", "robots"
+  add_foreign_key "robots", "users"
   add_foreign_key "tokens", "users"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
