@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_042838) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_07_004811) do
   create_table "logs", force: :cascade do |t|
     t.string "summary"
     t.integer "robot_id", null: false
@@ -72,7 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_042838) do
     t.string "email", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "phone", null: false
     t.string "password_digest", null: false
     t.boolean "invitation_accepted", default: false
     t.string "invitation_token"
